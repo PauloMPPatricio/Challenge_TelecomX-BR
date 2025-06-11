@@ -1,0 +1,208 @@
+Resumo Técnico do Projeto Challenge_TelecomX-BR
+
+Autor do projeto: Paulo M. P. Patricio
+
+Este Projeto é o desafio sugerido para a conclusão da formação Aprendendo a fazer ETL G8
+do programa ONE - Oracle Next Educations em parceria com a Alura, do curso de Especialização em Data Science. 
+
+Resumo Técnico - Projeto Telecom X - Análise de Evasão de Clientes
+
+Iniciamos nossa interação com a apresentação da descrição do projeto "Telecom X - Análise de Evasão de Clientes", que tem como objetivo compreender os fatores que levam ao cancelamento de clientes em uma empresa de telecomunicações. A descrição detalhou as responsabilidades da função de assistente de análise de dados, incluindo coleta, tratamento e análise de dados com Python, aplicação de conceitos de ETL, criação de visualizações estratégicas, realização de análise exploratória (EDA) e elaboração de relatórios com insights relevantes.
+
+Em seguida, com base nessa descrição, foi solicitado que os dados fossem registrados no arquivo consulta_andamento_projeto_telecomxbr.jsonl, localizado na seção "arquivos do projeto". Para atender a essa demanda, o conteúdo existente no arquivo JSONL foi carregado e uma nova entrada, correspondente ao projeto da Telecom X, foi formatada e adicionada ao conjunto de dados. Essa nova entrada incluiu um resumo da missão do projeto e os tópicos de aprendizado/prática destacados na descrição.
+
+Após a inserção da nova entrada, geramos uma versão atualizada do arquivo com o nome consulta_andamento_projeto_telecomxbr_atualizado.jsonl, o qual foi disponibilizado para download por meio de um link direto.
+
+Resumo Técnico – Integração do Dicionário de Dados ao Projeto TelecomXBR
+
+Iniciamos o processo com o objetivo de integrar informações complementares ao histórico do projeto TelecomXBR. Especificamente, foi solicitado que o conteúdo do arquivo 'TelecomX_dicionario.md', contendo um dicionário de dados, fosse incorporado ao final do arquivo de acompanhamento 'consulta_andamento_projeto_telecomxbr_v1.jsonl'.
+
+Primeiramente, foi realizada a leitura do arquivo Markdown, cujo conteúdo apresenta a definição técnica de variáveis usadas no projeto, conforme descrito abaixo:
+
+Dicionário de dados
+
+* customerID: número de identificação único de cada cliente
+* Churn: se o cliente deixou ou não a empresa
+* gender: gênero (masculino e feminino)
+* SeniorCitizen: informação sobre um cliente ter ou não idade igual ou maior que 65 anos
+* Partner: se o cliente possui ou não um parceiro ou parceira
+* Dependents: se o cliente possui ou não dependentes
+* tenure: meses de contrato do cliente
+* PhoneService: assinatura de serviço telefônico
+* MultipleLines: assinatura de mais de uma linha de telefone
+* InternetService: assinatura de um provedor de internet
+* OnlineSecurity: assinatura adicional de segurança online
+* OnlineBackup: assinatura adicional de backup online
+* DeviceProtection: assinatura adicional de proteção no dispositivo
+* TechSupport: assinatura adicional de suporte técnico, com menos tempo de espera
+* StreamingTV: assinatura de TV a cabo
+* StreamingMovies: assinatura de streaming de filmes
+* Contract: tipo de contrato
+* PaperlessBilling: se o cliente prefere receber a fatura online
+* PaymentMethod: forma de pagamento
+* Charges.Monthly: total de todos os serviços do cliente por mês
+* Charges.Total: total gasto pelo cliente
+
+Após essa leitura, o conteúdo acima foi encapsulado em uma nova entrada JSON, sob a chave "dicionario_dados", e inserido ao final do arquivo .jsonl existente. Esse processo foi cuidadosamente realizado para preservar todas as informações já presentes, conforme a diretriz de não modificar registros anteriores.
+
+Ao final da operação, o novo arquivo gerado, contendo o histórico original mais o dicionário de dados, foi salvo como 'consulta_andamento_projeto_telecomxbr_v1_atualizado.jsonl', e disponibilizado para download.
+
+
+O projeto Challenge_TelecomX-BR teve início com a necessidade de organização e versionamento do trabalho desenvolvido localmente. A primeira etapa consistiu na criação de um repositório remoto na plataforma GitHub. Para isso, o usuário, já autenticado em sua conta (https://github.com/PauloMPPatricio), acessou a página de criação de novos repositórios e registrou o nome Challenge_TelecomX-BR, sem inicializar com arquivos como README ou .gitignore, a fim de evitar conflitos com os arquivos locais.
+
+Em paralelo, foi confirmado que a pasta do projeto já existia no computador local do usuário, localizada no diretório:
+
+G:/18- Alura - ONE/1 - Formação Data Science/Challenge_TelecomX-BR
+
+Como ainda não havia nenhum arquivo presente na pasta local, foi necessário criar um README.md inicial para permitir o primeiro commit. Esse arquivo foi gerado diretamente pelo terminal com o comando echo, contendo um título simples correspondente ao nome do projeto.
+
+Na sequência, foi executada a seguinte rotina de comandos Git via PowerShell:
+
+1. Inicialização do repositório Git local com git init.
+2. Adição do repositório remoto com git remote add origin.
+3. Criação do README.md.
+4. Inclusão de arquivos com git add ..
+5. Registro do commit inicial com git commit -m "Primeiro comit com README".
+6. Alteração da branch principal para main com git branch -m main.
+7. Publicação do repositório local para o GitHub com git push -u origin main.
+
+Todo esse processo foi concluído com sucesso, e a confirmação foi visualizada no terminal, evidenciando que o push foi realizado corretamente. A partir deste ponto, o repositório passou a refletir o estado inicial do projeto, com o README.md disponível como primeiro commit rastreável.
+
+Por fim, como forma de controle e consulta futura, as informações relevantes foram registradas e salvas no arquivo consulta_andamento_projeto_telecomxbr.jsonl, contendo todos os comandos utilizados, o status do projeto, e os dados de configuração, disponível para download e reutilização posterior.
+
+
+Resumo Técnico – Etapa de Extração de Dados do Projeto TelecomXBR (com Códigos)
+
+Nesta etapa inicial do projeto, realizamos a extração e estruturação dos dados da base TelecomX, com foco na preparação para análises futuras relacionadas à evasão de clientes (churn). Os dados foram acessados através de um endpoint remoto em formato JSON:
+
+> https://raw.githubusercontent.com/alura-cursos/challenge2-data-science/refs/heads/main/TelecomX_Data.json
+
+Utilizamos um notebook do Google Colab com as bibliotecas pandas e requests, dado o seu suporte interativo e eficiente para ciência de dados.
+
+1. Importação de bibliotecas
+
+```python
+import pandas as pd
+import requests
+```
+
+2. Requisição de dados da API
+
+Realizamos a requisição HTTP para obter os dados e verificamos o status da resposta:
+
+```python
+url = 'https://raw.githubusercontent.com/alura-cursos/challenge2-data-science/refs/heads/main/TelecomX_Data.json'
+response = requests.get(url)
+
+if response.status_code == 200:
+    print("✅ Dados carregados com sucesso!")
+else:
+    print(f"❌ Falha ao carregar os dados. Código de status: {response.status_code}")
+```
+
+3. Conversão da resposta em JSON para DataFrame
+
+```python
+dados_json = response.json()
+df = pd.DataFrame(dados_json)
+df.head()  # Visualização inicial
+```
+
+4. Expansão das colunas aninhadas
+
+```python
+df_exp = df.copy()
+
+# Expandindo coluna 'customer'
+customer_df = pd.json_normalize(df_exp['customer'])
+df_exp = pd.concat([df_exp.drop(columns=['customer']), customer_df], axis=1)
+
+# Expandindo coluna 'phone'
+phone_df = pd.json_normalize(df_exp['phone'])
+df_exp = pd.concat([df_exp.drop(columns=['phone']), phone_df], axis=1)
+
+# Expandindo coluna 'internet'
+internet_df = pd.json_normalize(df_exp['internet'])
+df_exp = pd.concat([df_exp.drop(columns=['internet']), internet_df], axis=1)
+
+# Expandindo coluna 'account'
+account_df = pd.json_normalize(df_exp['account'])
+df_exp = pd.concat([df_exp.drop(columns=['account']), account_df], axis=1)
+
+df_exp.head()  # Verificação do resultado final
+```
+
+5. Inspeção da estrutura final dos dados
+
+```python
+df_exp.info()
+```
+
+Conclusões da Etapa
+
+- O DataFrame final contém 7267 registros e 21 colunas.
+- Todas as colunas estão completas, sem valores nulos.
+- A maioria das colunas está como object, mas duas (tenure e SeniorCitizen) são int64 e uma (Charges.Monthly) é float64.
+- Charges.Total está como object, indicando a necessidade de conversão para float nas próximas etapas.
+- Ainda não salvamos os dados em CSV, pois a estrutura ainda passará por ajustes adicionais.
+
+Finalizamos aqui a etapa de extração, com os dados devidamente carregados, expandidos e prontos para as etapas seguintes do pipeline de dados.
+
+Resumo Técnico – Atualização do Projeto Challenge_TelecomX-BR
+
+Iniciamos nossa interação com o objetivo de atualizar o arquivo README.md do projeto Challenge_TelecomX-BR, tomando como base o conteúdo presente no arquivo resumo_tecnico_unificado_Challenge_TelecomX-BR.txt. Esse arquivo consolidava as principais atividades realizadas no projeto, incluindo a descrição dos objetivos, o progresso técnico com códigos aplicados, e a estruturação dos dados utilizados na análise de evasão de clientes (churn).
+
+A primeira versão do README.md sugerida foi elaborada com base no resumo unificado, detalhando a visão geral do projeto, os objetivos principais, as etapas concluídas, os próximos passos planejados, a estrutura dos dados utilizados e os créditos ao autor e à formação do programa ONE-Alura. Essa versão inicial foi submetida à sua avaliação antes de qualquer substituição de arquivo, conforme solicitado.
+
+Após a leitura, foi solicitada a exclusão de trechos específicos relacionados à criação do repositório, ao registro de ações em arquivos .jsonl, e à seção com o dicionário de variáveis. Também foi solicitada a substituição da seção “Próximos Passos” por uma versão mais direta, listando as fases de Transformação, Carga e Análise, e Relatório Final. Além disso, foi incluído ao final o nome do autor, os créditos do projeto e uma mensagem final de acompanhamento.
+
+A versão final do README.md ficou da seguinte forma:
+
+---
+
+# Challenge_TelecomX-BR
+
+## Visão Geral
+
+Este projeto faz parte do desafio proposto na formação **"Aprendendo a fazer ETL - G8"** do programa **ONE - Oracle Next Education** em parceria com a **Alura**. Seu objetivo é analisar os fatores que contribuem para a evasão (churn) de clientes em uma empresa de telecomunicações, utilizando ferramentas e técnicas de análise de dados.
+
+## Objetivos
+
+- Compreender os fatores que levam ao cancelamento de clientes.
+- Aplicar práticas de ETL (Extração, Transformação e Carga).
+- Realizar análise exploratória de dados (EDA).
+- Construir visualizações e relatórios com insights estratégicos.
+
+## Andamento do Projeto
+
+### Etapas Concluídas
+
+1. **Extração de Dados**
+   - Fonte: JSON público da Alura ([link](https://raw.githubusercontent.com/alura-cursos/challenge2-data-science/refs/heads/main/TelecomX_Data.json))
+   - Uso do Google Colab com bibliotecas `pandas` e `requests`.
+   - Expansão de colunas aninhadas (`customer`, `phone`, `internet`, `account`) com `pd.json_normalize`.
+   - Verificação da estrutura final: 7267 registros e 21 colunas, sem valores nulos.
+
+## Próximos Passos
+
+- Transformação  
+- Carga e análise  
+- Relatório Final
+
+## Autor
+
+Paulo M. P. Patricio
+
+## Créditos
+
+Desenvolvido como parte da formação **"Aprendendo a fazer ETL - G8"** do programa **ONE - Oracle Next Education** em parceria com a **Alura**.
+
+---
+
+*Acompanhe o progresso do projeto neste repositório!*
+
+---
+
+O novo arquivo README_atualizado.md foi gerado com sucesso e disponibilizado para download como parte desta entrega.
+
+

@@ -1,0 +1,23 @@
+Resumo Técnico do Projeto Challenge_TelecomX-BR
+
+O projeto Challenge_TelecomX-BR teve início com a necessidade de organização e versionamento do trabalho desenvolvido localmente. A primeira etapa consistiu na criação de um repositório remoto na plataforma GitHub. Para isso, o usuário, já autenticado em sua conta (https://github.com/PauloMPPatricio), acessou a página de criação de novos repositórios e registrou o nome Challenge_TelecomX-BR, sem inicializar com arquivos como README ou .gitignore, a fim de evitar conflitos com os arquivos locais.
+
+Em paralelo, foi confirmado que a pasta do projeto já existia no computador local do usuário, localizada no diretório:
+
+G:/18- Alura - ONE/1 - Formação Data Science/Challenge_TelecomX-BR
+
+Como ainda não havia nenhum arquivo presente na pasta local, foi necessário criar um README.md inicial para permitir o primeiro commit. Esse arquivo foi gerado diretamente pelo terminal com o comando echo, contendo um título simples correspondente ao nome do projeto.
+
+Na sequência, foi executada a seguinte rotina de comandos Git via PowerShell:
+
+1. Inicialização do repositório Git local com git init.
+2. Adição do repositório remoto com git remote add origin.
+3. Criação do README.md.
+4. Inclusão de arquivos com git add ..
+5. Registro do commit inicial com git commit -m "Primeiro comit com README".
+6. Alteração da branch principal para main com git branch -m main.
+7. Publicação do repositório local para o GitHub com git push -u origin main.
+
+Todo esse processo foi concluído com sucesso, e a confirmação foi visualizada no terminal, evidenciando que o push foi realizado corretamente. A partir deste ponto, o repositório passou a refletir o estado inicial do projeto, com o README.md disponível como primeiro commit rastreável.
+
+Por fim, como forma de controle e consulta futura, as informações relevantes foram registradas e salvas no arquivo consulta_andamento_projeto_telecomxbr.jsonl, contendo todos os comandos utilizados, o status do projeto, e os dados de configuração, disponível para download e reutilização posterior.
