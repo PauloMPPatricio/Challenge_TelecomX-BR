@@ -2,7 +2,7 @@
 old/
 
 # Ignorar a pasta 'resumos_projetos'
-resumos_projetos/
+resumos_projeto/
 
 # Ignorar o arquivo 'consulta_andamento_projeto_telecomxbr_v3.jsonl'
 consulta_andamento_projeto_telecomxbr_v3.jsonl
