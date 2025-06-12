@@ -1,3 +1,4 @@
+
 # Challenge_TelecomX-BR
 
 ## Visão Geral
@@ -21,9 +22,17 @@ Este projeto faz parte do desafio proposto na formação **"Aprendendo a fazer E
    - Expansão de colunas aninhadas (`customer`, `phone`, `internet`, `account`) com `pd.json_normalize`.
    - Verificação da estrutura final: 7267 registros e 21 colunas, sem valores nulos.
 
+2. **Transformação dos Dados**
+   - Análise de valores ausentes com substituição de padrões como "", "None", etc., por `np.nan`.
+   - Remoção de 224 registros com `Churn` ausente (variável alvo).
+   - Preenchimento de 11 valores ausentes em `Charges.Total` com `0` quando `tenure == 0`.
+   - Conversão da coluna `Charges.Total` para `float64`.
+   - Verificação de duplicatas por `customerID` e por linha completa (nenhuma duplicata encontrada).
+   - Inspeção manual dos valores únicos por coluna para garantir consistência.
+   - Criação da coluna `Contas.Diarias` como `Charges.Monthly / 30`, arredondada para duas casas decimais.
+
 ## Próximos Passos
 
-- Transformação  
 - Carga e análise  
 - Relatório Final
 
